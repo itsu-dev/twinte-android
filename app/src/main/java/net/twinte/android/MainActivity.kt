@@ -83,6 +83,17 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
             }
 
+            // openSettings()にテーマ（dark/light）が渡された場合の処理
+            /*
+            @JavascriptInterface()
+            fun openSettings(theme: String) {
+                startActivity(
+                    Intent(this@MainActivity, SettingsActivity::class.java)
+                        .putExtra("dark_mode", theme == "dark")
+                )
+            }
+            */
+
             @JavascriptInterface()
             fun share(body: String) {
                 main_webview.shareScreen(body)
@@ -192,6 +203,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FILE_CHOOSER_REQUEST) {
             if (resultCode == RESULT_OK)
                 filePathCallback?.onReceiveValue(if (data?.data != null) arrayOf(data.data!!) else null)
